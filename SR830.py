@@ -7,7 +7,6 @@ Created on Thu May 24 21:18:13 2018
 SR830 sometime return unexpected values through GPIB. Turn it off and on could solve the problem.
 """
 import visa
-import numpy as np
 rm=visa.ResourceManager()
 
 class SR830():
@@ -73,11 +72,11 @@ class SR830():
     def set_auto_range(self,value,InputType ='volt'):
         self._auto_ON = False
         if value == 'on':
-            self.senslist = np.array([2e-9, 5e-9, 10e-9, 20e-9, 50e-9, 100e-9, 200e-9, 500e-9, 1e-6, 2e-6, 
+            self.senslist = ([2e-9, 5e-9, 10e-9, 20e-9, 50e-9, 100e-9, 200e-9, 500e-9, 1e-6, 2e-6, 
                           5e-6, 10e-6, 20e-6, 50e-6, 100e-6, 200e-6, 500e-6, 1e-3, 2e-3, 5e-3,
                           10e-3, 20e-3, 50e-3, 100e-3, 200e-3, 500e-3, 1])
             if InputType == 'curr':
-                self.senslist = self.senslist*1e-6
+                self.senslist = ([x*1e-6 for x in self.senslist])
             self.sens=int(self.get_SENS())
             self._Xval=0
             self._Yval=0
